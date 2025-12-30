@@ -9,19 +9,19 @@ import moment from 'moment-timezone'
 
 
 global.owner = [
-  [ '50432955554', 'Eliac', true ]
+  [ '12082982957', 'emmanuel', true ]
 ]; 
 
-global.suittag = ['50432955554'] 
+global.suittag = ['12082982957'] 
 global.sessions = 'Sessions'
 global.jadi = 'JadiBots' 
 global.Jadibts = true
 global.packname = '🎅🎄 𝙺𝚒𝚛𝚒𝚝𝚘-𝙱𝚘𝚝 𝙼𝙳 ✨⛄';
 global.botname = '🎁 𝗞𝗜𝗥𝗜𝗧𝗢-𝗕𝗢𝗧 𝗠𝗗 ⛄★.°🦌';
-global.author = '🎄 𝑴𝒂𝒅𝒆 𝑩𝒚 𝑬𝒍𝒊𝒂𝒄 🎅❄️';
-global.dev = '🔔 © ρσɯҽɾҽԃ Ⴆყ 𝑬𝒍𝒊𝒂𝒄 🎁🎄';
-global.textbot = '🧦🎅 ᴋɪʀɪᴛᴏ-ʙᴏᴛ ᴍᴅ • 𝑬𝒍𝒊𝒂𝒄 ❄️🎄✨';
-global.etiqueta = '🎄 𝞔𝘭ⅈɑｃ 🎅';
+global.author = '🎄 𝑴𝒂𝒅𝒆 𝑩𝒚 Emmanuel 🎅❄️';
+global.dev = '🔔 © ρσɯҽɾҽԃ Ⴆყ Emmanuel 🎁🎄';
+global.textbot = '🧦🎅 ᴋɪʀɪᴛᴏ-ʙᴏᴛ ᴍᴅ • Emmanuel ❄️🎄✨';
+global.etiqueta = '🎄 Emmanuel 🎅';
 global.ch = {
 ch1: '120363403598732691@newsletter',
 ch2: '120363403598732691@newsletter',
@@ -30,7 +30,7 @@ global.cheerio = cheerio
 global.fs = fs
 global.fetch = fetch
 global.axios = axios
-global.kirito = 'https://kirito-my.vercel.app'
+global.kirito = ''
 global.moment = moment   
 
 let icono1 = [
