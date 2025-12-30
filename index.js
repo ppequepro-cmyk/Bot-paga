@@ -44,7 +44,7 @@ say('Bot', {
   align: 'left',
   gradient: ['green', 'white']
 });
-say('developed by Eliac', {
+say('developed by Emmanuel', {
   font: 'console',
   align: 'center',
   colors: ['cyan', 'magenta', 'yellow']
