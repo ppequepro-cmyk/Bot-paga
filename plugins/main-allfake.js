@@ -69,7 +69,7 @@ global.wait = '✪ Espera un momento, soy lento...';
 //Enlaces
 var canal = 'https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m'  
 let canal2 = 'https://whatsapp.com/channel/0029VayQwPsFnSzESZJ9Us3z'
-var git = 'https://github.com/Deylin-Eliac'
+var git = 'https://github.com/BrayanOFC-Li'
 var github = 'https://github.com/alejandroperez242425-maker/Kirito-bot-MD' 
 let correo = 'bot@gmail.com'
 
