@@ -76,9 +76,6 @@ ${sections}
     let channelId = channel?.id || global.ch?.ch1;
     let channelName = channel?.name || 'Canal oficial';
 
-    // WhatsApp puede rechazar el botón nativo si el JID del canal configurado
-    // quedó desactualizado. Resolvemos el enlace oficial directamente contra
-    // la metadata de WhatsApp y usamos el JID real que devuelva el servidor.
     if (channel?.url && typeof conn.newsletterMetadata === 'function') {
       try {
         const inviteCode = channel.url.split('/channel/')[1]?.split(/[?#/]/)[0];
@@ -106,8 +103,6 @@ ${sections}
       };
     }
 
-
-    // Botón real de enlace al canal. No depende de una actualización reenviada.
     const message = {
       viewOnceMessage: {
         message: {
@@ -119,7 +114,7 @@ ${sections}
                 {
                   name: 'cta_url',
                   buttonParamsJson: JSON.stringify({
-                    display_text: '📢 Abrir canal de ONYX',
+                    display_text: '⚡ VER CANAL ⚡',
                     url: channel?.url || 'https://whatsapp.com/channel/0029Vb9DAtxBlHphhwfBkM1i',
                     merchant_url: channel?.url || 'https://whatsapp.com/channel/0029Vb9DAtxBlHphhwfBkM1i'
                   })
