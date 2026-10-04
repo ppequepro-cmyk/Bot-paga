@@ -109,19 +109,17 @@ ${sections}
           interactiveMessage: {
             body: { text: menuText },
             footer: { text: `📢 ${channelName}` },
-            nativeFlowMessage: {
-              buttons: [
-                {
-                  name: 'cta_url',
-                  buttonParamsJson: JSON.stringify({
-                    display_text: '📢 Abrir canal de ONYX',
-                    url: channel?.url || 'https://whatsapp.com/channel/0029Vb9DAtxBlHphhwfBkM1i',
-                    merchant_url: channel?.url || 'https://whatsapp.com/channel/0029Vb9DAtxBlHphhwfBkM1i'
-                  })
-                }
-              ]
-            },
-            contextInfo
+            contextInfo,
+            interactiveButtons: [
+              {
+                name: 'cta_url',
+                buttonParamsJson: JSON.stringify({
+                  display_text: '📢 Canal Oficial',
+                  url: channel?.url || 'https://whatsapp.com/channel/0029Vb9DAtxBlHphhwfBkM1i',
+                  merchant_url: channel?.url || 'https://whatsapp.com/channel/0029Vb9DAtxBlHphhwfBkM1i'
+                })
+              }
+            ]
           }
         }
       }
