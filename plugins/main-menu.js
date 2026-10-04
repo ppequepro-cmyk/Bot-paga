@@ -71,12 +71,29 @@ ${sections}
 ⌬⌬➩ © Powered by ${global.dev || 'Emmanuel'} - ${global.botname || 'BOT'}`.trim();
 
     const channel = global.channelRD || null;
-    const channelId = channel?.id || global.ch?.ch1;
-    const channelName = channel?.name || 'Canal oficial';
+    let channelId = channel?.id || global.ch?.ch1;
+    let channelName = channel?.name || 'Canal oficial';
+
+    // WhatsApp puede rechazar el botón nativo si el JID del canal configurado
+    // quedó desactualizado. Resolvemos el enlace oficial directamente contra
+    // la metadata de WhatsApp y usamos el JID real que devuelva el servidor.
+    if (channel?.url && typeof conn.newsletterMetadata === 'function') {
+      try {
+        const inviteCode = channel.url.split('/channel/')[1]?.split(/[?#/]/)[0];
+        if (inviteCode) {
+          const metadata = await conn.newsletterMetadata('invite', inviteCode);
+          if (metadata?.id) channelId = metadata.id;
+          if (metadata?.name) channelName = metadata.name;
+        }
+      } catch (e) {
+        console.error('No se pudo resolver el canal oficial:', e?.message || e);
+      }
+    }
 
     const contextInfo = {
       mentionedJid: [userId],
-      isForwarded: true
+      isForwarded: true,
+      forwardingScore: 1
     };
 
     if (channelId) {
@@ -86,6 +103,7 @@ ${sections}
         newsletterName: channelName
       };
     }
+
 
     await conn.sendMessage(m.chat, {
       text: menuText,
