@@ -16,12 +16,12 @@ global.suittag = ['13202109768']
 global.sessions = 'Sessions'
 global.jadi = 'JadiBots' 
 global.Jadibts = true
-global.packname = '🎅🎄 𝙺𝚒𝚛𝚒𝚛ᴛᴏ-𝙱ᴏᴛ 𝙼𝙳 ✨⛄';
-global.botname = '🎁 𝗞𝗜𝗥𝗜𝗧𝗢-𝗕𝗢𝗧 𝗠𝗗 ⛄★.°🦌';
-global.author = '🎄 𝑴𝒂𝒅𝒆 𝑩𝒚 Emmanuel 🎅❄️';
-global.dev = '🔔 © ρσɯҽɾҽԃ Ⴆყ Emmanuel 🎁🎄';
-global.textbot = '🧦🎅 ᴋɪʀɪᴛᴏ-ʙᴏᴛ ᴍᴅ • Emmanuel ❄️🎄✨';
-global.etiqueta = '🎄 Emmanuel 🎅';
+global.packname = 'ONYX-BOT';
+global.botname = 'ONYX-BOT';
+global.author = 'Made by Emmanuel';
+global.dev = '© Powered by Emmanuel';
+global.textbot = 'ONYX-BOT • Emmanuel';
+global.etiqueta = 'Emmanuel';
 global.ch = {
 ch1: '120363431701840368@newsletter',
 ch2: '120363431701840368@newsletter',
