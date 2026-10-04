@@ -82,20 +82,9 @@ ${sections}
     if (channelId) {
       contextInfo.forwardedNewsletterMessageInfo = {
         newsletterJid: channelId,
-        serverMessageId: '',
+        serverMessageId: 1,
         newsletterName: channelName
       };
-
-      if (channel?.url) {
-        contextInfo.externalAdReply = {
-          title: channelName,
-          body: 'Ver canal',
-          mediaType: 1,
-          sourceUrl: channel.url,
-          renderLargerThumbnail: false,
-          showAdAttribution: false
-        };
-      }
     }
 
     await conn.sendMessage(m.chat, {
