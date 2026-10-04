@@ -66,8 +66,7 @@
     "yt-search": "^2.10.3"
   },
   "optionalDependencies": {
-    "moment-timezone": "^0.5.37",
-    "wa-sticker-formatter": "^4.3.2"
+    "moment-timezone": "^0.5.37"
   },
   "overrides": {
     "libsignal": "github:WhiskeySockets/libsignal-node"
