@@ -113,13 +113,7 @@ global.rmr = more.repeat(850)
 'https://Kirito.my/media/images/5.jpg'
 ].getRandom()*/
 
-global.icono = [
-`${kirito}/media/images/86490944_k.jpg`,
-`${kirito}/media/images/37854135_k.jpg`,
-`${kirito}/media/images/97492908_k.jpg`,
-`${kirito}/media/images/20560424_k.jpg`,
-`${kirito}/media/images/98334953_k.jpg`
-].getRandom()
+global.icono = inc
 
 global.packsticker = `┏━──────━◆◆━──────━┓\n✰ Usuario: ${nombre}\n⚔✰ Bot: ${botname}\n✰ Fecha: ${fecha}\n✰ Hora: ${tiempo}\n┗━──────━◆◆━──────━┛`;
 global.packsticker2 = `\n┏━──────━◆◆━──────━┓\n👑 Desarrollador: ${dev}\n┗━──────━◆◆━──────━┛`;
