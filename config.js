@@ -23,11 +23,11 @@ global.dev = '🔔 © ρσɯҽɾҽԃ Ⴆყ Emmanuel 🎁🎄';
 global.textbot = '🧦🎅 ᴋɪʀɪᴛᴏ-ʙᴏᴛ ᴍᴅ • Emmanuel ❄️🎄✨';
 global.etiqueta = '🎄 Emmanuel 🎅';
 global.ch = {
-ch1: '120363403598732691@newsletter',
-ch2: '120363403598732691@newsletter',
+ch1: '120363431701840368@newsletter',
+ch2: '120363431701840368@newsletter',
 }
 global.channelRD = {
-  id: '120363403598732691@newsletter',
+  id: '120363431701840368@newsletter',
   name: 'Canal oficial',
   url: 'https://whatsapp.com/channel/0029Vb9DAtxBlHphhwfBkM1i'
 }
