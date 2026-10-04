@@ -16,7 +16,7 @@ global.suittag = ['13202109768']
 global.sessions = 'Sessions'
 global.jadi = 'JadiBots' 
 global.Jadibts = true
-global.packname = '🎅🎄 𝙺𝚒𝚛𝚒𝚝𝚘-𝙱𝚘𝚝 𝙼𝙳 ✨⛄';
+global.packname = '🎅🎄 𝙺𝚒𝚛𝚒𝚛ᴛᴏ-𝙱ᴏᴛ 𝙼𝙳 ✨⛄';
 global.botname = '🎁 𝗞𝗜𝗥𝗜𝗧𝗢-𝗕𝗢𝗧 𝗠𝗗 ⛄★.°🦌';
 global.author = '🎄 𝑴𝒂𝒅𝒆 𝑩𝒚 Emmanuel 🎅❄️';
 global.dev = '🔔 © ρσɯҽɾҽԃ Ⴆყ Emmanuel 🎁🎄';
@@ -25,6 +25,11 @@ global.etiqueta = '🎄 Emmanuel 🎅';
 global.ch = {
 ch1: '120363403598732691@newsletter',
 ch2: '120363403598732691@newsletter',
+}
+global.channelRD = {
+  id: '120363403598732691@newsletter',
+  name: 'Canal oficial',
+  url: 'https://whatsapp.com/channel/0029Vb9DAtxBlHphhwfBkM1i'
 }
 global.cheerio = cheerio
 global.fs = fs
