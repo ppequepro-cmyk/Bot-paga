@@ -1,38 +1,61 @@
 export async function before(m, {conn, isAdmin, isBotAdmin, isOwner, isROwner}) {
-  if (m.isBaileys && m.fromMe) return !0;
-  if (m.isGroup) return !1;
-  if (!m.message) return !0;
-  if (m.text.includes('menu') || m.text.includes('p') || m.text.includes('buy') || m.text.includes('qr') || m.text.includes('code')) return !0;
-const res = await fetch('https://files.catbox.moe/0aa6fw.png');
-const img = Buffer.from(await res.arrayBuffer());
-
-const fkontak = {
-    key: { fromMe: false, participant: "0@s.whatsapp.net" },
-    message: {
-        productMessage: {
-            product: {
-                productImage: { jpegThumbnail: img },
-                title: `texto`,
-                description: '𝗗𝗘𝗧𝗘𝗡𝗧𝗘 𝗔𝗩𝗜𝗦𝗢',
-                currencyCode: "USD",
-                priceAmount1000: "5000", 
-                retailerId: "BOT"
-            },
-            businessOwnerJid: "0@s.whatsapp.net"
-        }
-    }
-};
+  if (m.isBaileys && m.fromMe) return true;
+  if (m.isGroup) return false;
+  if (!m.message) return true;
 
   const chat = global.db.data.chats[m.chat];
   const bot = global.db.data.settings[this.user.jid] || {};
-if (m.chat) return !0
+
+  // No bloquear los privados por defecto. Solo actuar cuando antiPrivate
+  // esté realmente activado y el remitente no sea owner.
   if (bot.antiPrivate && !isOwner && !isROwner) {
-    await m.reply(`${emoji} Hola @${m.sender.split`@`[0]}, 
+    let img = Buffer.alloc(0);
+    try {
+      const res = await fetch('https://files.catbox.moe/0aa6fw.png');
+      if (res.ok) img = Buffer.from(await res.arrayBuffer());
+    } catch (e) {
+      console.error('Aviso _antiprivado: no se pudo cargar la imagen:', e.message);
+    }
 
+    const fkontak = {
+      key: { fromMe: false, participant: '0@s.whatsapp.net' },
+      message: {
+        productMessage: {
+          product: {
+            productImage: { jpegThumbnail: img },
+            title: 'texto',
+            description: '𝗗𝗘𝗧𝗘𝗡𝗧𝗘 𝗔𝗩𝗜𝗦𝗢',
+            currencyCode: 'USD',
+            priceAmount1000: '5000',
+            retailerId: 'BOT'
+          },
+          businessOwnerJid: '0@s.whatsapp.net'
+        }
+      }
+    };
 
-⚠️ Los comandos no funcionan en *privados*.  
-Serás *bloqueado* inmediatamente.`, fkontak, {mentions: [m.sender]});
-    await this.updateBlockStatus(m.chat, 'block');
+    try {
+      await m.reply(
+        `${emoji} Hola @${m.sender.split('@')[0]}, 
+
+⚠️ Los comandos no funcionan en *privados*.
+Serás *bloqueado* inmediatamente.`,
+        fkontak,
+        { mentions: [m.sender] }
+      );
+    } catch (e) {
+      console.error('Error _antiprivado al responder:', e.message);
+      await m.reply('⚠️ Los comandos no funcionan en privados.');
+    }
+
+    try {
+      await this.updateBlockStatus(m.chat, 'block');
+    } catch (e) {
+      console.error('Error _antiprivado al bloquear:', e.message);
+    }
+
+    return true;
   }
-  return !1;
+
+  return false;
 }
