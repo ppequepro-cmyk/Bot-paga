@@ -108,16 +108,10 @@ export async function handler(chatUpdate) {
         const isROwner = global.owner.map(([number]) => number.replace(/[^0-9]/g, '') + detectwhat).includes(senderJid);
         const isOwner = isROwner || m.fromMe;
 
+        if (m.isBaileys || opts['nyimak']) return;
+        if (!isROwner && opts['self']) return;
+        if (opts['swonly'] && m.chat !== 'status@broadcast') return;
         if (typeof m.text !== 'string') m.text = '';
-
-        // /menu es un comando público. Se procesa antes de los bloqueos globales
-        // para que self/solo/before no puedan impedir que otros usuarios lo vean.
-        const isMenuCommand = /^[/#!.]\\s*(menu|allmenu|menú|help)(?:\\s|$)/i.test(m.text);
-
-        if (m.isBaileys && m.fromMe) return;
-        if (!isMenuCommand && opts['nyimak']) return;
-        if (!isMenuCommand && !isROwner && opts['self']) return;
-        if (!isMenuCommand && opts['swonly'] && m.chat !== 'status@broadcast') return;
 
         let senderLid, botLid, botJid, groupMetadata, participants, user2, bot, isRAdmin, isAdmin, isBotAdmin;
 
@@ -152,43 +146,6 @@ export async function handler(chatUpdate) {
 
         const ___dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), './plugins');
         let usedPrefix = '';
-
-        // Ruta directa del menú. No depende del orden de plugins ni de hooks "before".
-        if (isMenuCommand) {
-            try {
-                const menuModule = await import(`./plugins/main-menu.js?directMenu=${Date.now()}`);
-                const menuHandler = menuModule.default;
-                if (typeof menuHandler === 'function') {
-                    const menuMatch = m.text.match(/^[/#!.]\\s*/i);
-                    const menuUsedPrefix = menuMatch?.[0]?.trim()?.[0] || '/';
-                    m.plugin = 'main-menu.js';
-                    m.isCommand = true;
-                    await menuHandler.call(conn, m, {
-                        conn,
-                        usedPrefix: menuUsedPrefix,
-                        command: m.text.replace(/^[/#!.]\\s*/i, '').trim().split(/\\s+/)[0].toLowerCase(),
-                        text: m.text.replace(/^[/#!.]\\s*/i, '').trim().split(/\\s+/).slice(1).join(' '),
-                        args: m.text.replace(/^[/#!.]\\s*/i, '').trim().split(/\\s+/).slice(1),
-                        user: global.db.data.users[m.sender],
-                        isROwner,
-                        isOwner,
-                        isRAdmin,
-                        isAdmin,
-                        isBotAdmin,
-                        participants,
-                        groupMetadata,
-                        chatUpdate,
-                        __dirname: ___dirname,
-                        __filename: join(___dirname, 'main-menu.js')
-                    });
-                    return;
-                }
-            } catch (e) {
-                console.error('Error en ruta directa de /menu:', e);
-                try { await m.react('✖️'); } catch {}
-                return;
-            }
-        }
 
         for (const name in global.plugins) {
             const plugin = global.plugins[name];
@@ -266,7 +223,7 @@ export async function handler(chatUpdate) {
 
             global.comando = command;
 
-            if (settings.soloParaJid && m.sender !== settings.soloParaJid) {
+            if (settings.soloParaJid && m.sender !== settings.soloParaJid && !isMenuCommand) {
                 continue;
             }
 
@@ -314,8 +271,7 @@ export async function handler(chatUpdate) {
                 m.error = e;
                 console.error(`Error de ejecución en plugin ${name}:`, e);
                 const errorText = format(e).replace(new RegExp(Object.values(global.APIKeys).join('|'), 'g'), 'Administrador');
-                await m.reply(errorText);
-                try { await m.react('✖️'); } catch {}
+                m.reply(errorText);
             } finally {
                 if (typeof plugin.after === 'function') {
                     try {
@@ -362,7 +318,7 @@ export async function handler(chatUpdate) {
     }
 }
 
-global.dfail = async (type, m, conn) => {
+global.dfail = (type, m, conn) => {
     const messages = {
         rowner: `
 ┏━━━━━━━━━━━━━━━━╮
@@ -412,8 +368,8 @@ global.dfail = async (type, m, conn) => {
 ┗━━━━━━━━━━━━━━╯`
     };
     if (messages[type]) {
-        await conn.reply(m.chat, messages[type], m);
-        try { await m.react('✖️'); } catch {}
+        conn.reply(m.chat, messages[type], m);
+        try { m.react('✖️'); } catch {}
     }
 };
 
