@@ -80,7 +80,7 @@ ${sections}
       console.error('Aviso main-menu: no se pudo cargar la imagen:', e.message);
     }
 
-    const channel = global.channelRD || global.channelRD;
+    const channel = global.channelRD || null;
     const channelId = channel?.id || global.ch?.ch1;
     const channelName = channel?.name || 'Canal oficial';
 
@@ -102,13 +102,21 @@ ${sections}
         title: global.botname || 'BOT',
         body: global.textbot || '',
         mediaType: 1,
-        mediaUrl: global.redes || channelId || '',
-        sourceUrl: global.redes || '',
         thumbnail,
         showAdAttribution: false,
         containsAutoReply: true,
         renderLargerThumbnail: true
       };
+
+      // Solo usar URLs reales si existen. Un JID de canal no es una URL y
+      // puede hacer que Baileys rechace el mensaje para otros usuarios.
+      const sourceUrl = typeof global.redes === 'string' && /^https?:\/\//i.test(global.redes)
+        ? global.redes
+        : null;
+      if (sourceUrl) {
+        contextInfo.externalAdReply.mediaUrl = sourceUrl;
+        contextInfo.externalAdReply.sourceUrl = sourceUrl;
+      }
     }
 
     await conn.sendMessage(m.chat, {
