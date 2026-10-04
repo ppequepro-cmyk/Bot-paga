@@ -1,3 +1,5 @@
+import { generateWAMessageFromContent } from '@whiskeysockets/baileys';
+
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
     const userId = m.mentionedJid?.[0] || m.sender;
@@ -105,10 +107,33 @@ ${sections}
     }
 
 
-    await conn.sendMessage(m.chat, {
-      text: menuText,
-      contextInfo
-    }, { quoted: m });
+    // Botón real de enlace al canal. No depende de una actualización reenviada.
+    const message = {
+      viewOnceMessage: {
+        message: {
+          interactiveMessage: {
+            body: { text: menuText },
+            footer: { text: `📢 ${channelName}` },
+            nativeFlowMessage: {
+              buttons: [
+                {
+                  name: 'cta_url',
+                  buttonParamsJson: JSON.stringify({
+                    display_text: '📢 Abrir canal de ONYX',
+                    url: channel?.url || 'https://whatsapp.com/channel/0029Vb9DAtxBlHphhwfBkM1i',
+                    merchant_url: channel?.url || 'https://whatsapp.com/channel/0029Vb9DAtxBlHphhwfBkM1i'
+                  })
+                }
+              ]
+            },
+            contextInfo
+          }
+        }
+      }
+    };
+
+    const msg = generateWAMessageFromContent(m.chat, message, { quoted: m });
+    await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id });
 
   } catch (e) {
     console.error('Error en main-menu:', e);
