@@ -94,13 +94,7 @@ global.saludo = hour;
   'https://Kirito.my/media/images/13.png'
 ];*/
 
-const imgs = [
-`${kirito}/media/images/46916697_k.jpg`,
-`${kirito}/media/images/34233570_k.jpg`,
-`${kirito}/media/images/58665955_k.jpg`,
-`${kirito}/media/images/74829142_k.jpg`,
-`${kirito}/media/images/97506543_k.jpg`
-]
+const imgs = [inc, inc, inc, inc, inc]
 
 global.img = imgs[Math.floor(Math.random() * imgs.length)];
 
@@ -131,7 +125,7 @@ global.packsticker = `┏━──────━◆◆━──────━�
 global.packsticker2 = `\n┏━──────━◆◆━──────━┓\n👑 Desarrollador: ${dev}\n┗━──────━◆◆━──────━┛`;
 
 
-    const res = await fetch(`${kirito}/media/images/95705905_k.jpg`);
+    const res = await fetch(inc);
     const thumb2 = Buffer.from(await res.arrayBuffer());
     const userJid = m.sender
 
