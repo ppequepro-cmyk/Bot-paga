@@ -89,21 +89,9 @@ ${sections}
       };
     }
 
-    const channelUrl = channel?.url || 'https://whatsapp.com/channel/0029Vb9DAtxBlHphhwfBkM1i';
-
     await conn.sendMessage(m.chat, {
       text: menuText,
-      contextInfo,
-      interactiveButtons: [
-        {
-          name: 'cta_url',
-          buttonParamsJson: JSON.stringify({
-            display_text: '📢 Canal Oficial',
-            url: channelUrl,
-            merchant_url: channelUrl
-          })
-        }
-      ]
+      contextInfo
     }, { quoted: m });
 
   } catch (e) {
