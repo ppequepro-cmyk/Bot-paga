@@ -165,57 +165,6 @@ const connectionOptions = {
 
 global.conn = makeWASocket(connectionOptions);
 
-const WATERMARK_PATH = path.join(__dirname, 'watermark.png');
-const WATERMARK_WIDTH_PX = 150;
-let watermarkBuffer;
-try {
-    if (existsSync(WATERMARK_PATH)) {
-        watermarkBuffer = readFileSync(WATERMARK_PATH);
-        console.log(chalk.bold.green(`\n[WATERMARK] Archivo 'watermark.png' cargado con éxito.`));
-    } else {
-        console.log(chalk.bold.red(`\n[WATERMARK ERROR] ¡ATENCIÓN! Falta el archivo 'watermark.png' en la raíz.`));
-    }
-} catch (e) {
-    console.error(chalk.bold.red(`[WATERMARK ERROR] Error al leer watermark.png:`), e);
-}
-
-async function aplicarMarcaDeAgua(inputImageBuffer) {
-    if (!watermarkBuffer) return inputImageBuffer;
-    
-    try {
-        const resizedWatermarkBuffer = await sharp(watermarkBuffer)
-            .resize(WATERMARK_WIDTH_PX, null, { fit: 'contain' })
-            .toBuffer();
-
-        const outputBuffer = await sharp(inputImageBuffer)
-            .composite([{
-                input: resizedWatermarkBuffer,
-                gravity: sharp.gravity.northwest,
-            }])
-            .toBuffer();
-        
-        return outputBuffer;
-    } catch (error) {
-        console.error(chalk.bold.red(`[WATERMARK ERROR] Fallo Sharp al aplicar marca de agua:`), error);
-        return inputImageBuffer;
-    }
-}
-
-const sendMessageOriginal = conn.sendMessage;
-
-conn.sendMessage = async (jid, content, options = {}) => {
-    
-    if (content && content.image instanceof Buffer) {
-        
-        const imagenFinalBuffer = await aplicarMarcaDeAgua(content.image);
-
-        content.image = imagenFinalBuffer;
-    }
-    
-    return sendMessageOriginal(jid, content, options);
-};
-
-console.log(chalk.bold.cyan("✅ [WATERMARK] La función 'conn.sendMessage' ha sido modificada para marcar todas las imágenes."));
 
 if (!existsSync(`./${sessions}/creds.json`)) {
   if (opcion === '2' || methodCode) {
