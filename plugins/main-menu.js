@@ -69,11 +69,51 @@ ${sections}
 
 ⌬⌬➩ © Powered by ${global.dev || 'Emmanuel'} - ${global.botname || 'BOT'}`.trim();
 
+    let thumbnail = null;
+    try {
+      const imageUrl = global.inc || global.img;
+      if (imageUrl) {
+        const res = await fetch(imageUrl);
+        if (res.ok) thumbnail = Buffer.from(await res.arrayBuffer());
+      }
+    } catch (e) {
+      console.error('Aviso main-menu: no se pudo cargar la imagen:', e.message);
+    }
+
+    const channel = global.channelRD || global.channelRD;
+    const channelId = channel?.id || global.ch?.ch1;
+    const channelName = channel?.name || 'Canal oficial';
+
+    const contextInfo = {
+      mentionedJid: [userId],
+      isForwarded: true
+    };
+
+    if (channelId) {
+      contextInfo.forwardedNewsletterMessageInfo = {
+        newsletterJid: channelId,
+        serverMessageId: '',
+        newsletterName: channelName
+      };
+    }
+
+    if (thumbnail) {
+      contextInfo.externalAdReply = {
+        title: global.botname || 'BOT',
+        body: global.textbot || '',
+        mediaType: 1,
+        mediaUrl: global.redes || channelId || '',
+        sourceUrl: global.redes || '',
+        thumbnail,
+        showAdAttribution: false,
+        containsAutoReply: true,
+        renderLargerThumbnail: true
+      };
+    }
+
     await conn.sendMessage(m.chat, {
       text: menuText,
-      contextInfo: {
-        mentionedJid: [userId]
-      }
+      contextInfo
     }, { quoted: m });
 
   } catch (e) {
