@@ -68,7 +68,7 @@ ${global.rmr || ''}
 ${sections}
 
 ╭━━〔 📢 CANAL OFICIAL 〕━━━⌬
-┃ 🔗 https://whatsapp.com/channel/0029Vb9DAtxBlHphhwfBkM1i
+┃ ➩ Toca el nombre del canal para abrirlo
 ╰━━━━━━━━━━━━━━━━━━━━⌬
 
 ⌬⌬➩ © Powered by ${global.dev || 'Emmanuel'} - ${global.botname || 'BOT'}`.trim();
@@ -78,17 +78,32 @@ ${sections}
       isForwarded: true
     };
 
-    // Conservamos la información del canal, pero eliminamos por completo
-    // la miniatura y externalAdReply para evitar fallos de envío.
+    // Conectamos el menú directamente con el canal oficial.
+    // No mostramos la URL dentro del texto. WhatsApp recibe el enlace
+    // mediante la metadata del mensaje para que el nombre del canal sea
+    // el elemento navegable.
     const channel = global.channelRD || null;
     const channelId = channel?.id || global.ch?.ch1;
     const channelName = channel?.name || 'Canal oficial';
+    const channelUrl = channel?.url || '';
 
     if (channelId) {
       contextInfo.forwardedNewsletterMessageInfo = {
         newsletterJid: channelId,
         serverMessageId: '',
         newsletterName: channelName
+      };
+    }
+
+    if (channelUrl) {
+      contextInfo.externalAdReply = {
+        title: channelName,
+        body: '📢 Abrir canal oficial',
+        mediaType: 1,
+        sourceUrl: channelUrl,
+        mediaUrl: channelUrl,
+        showAdAttribution: false,
+        containsAutoReply: true
       };
     }
 
