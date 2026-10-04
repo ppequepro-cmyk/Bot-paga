@@ -189,7 +189,12 @@ export async function handler(chatUpdate) {
                 const extraBefore = {
                     match, conn, participants, groupMetadata, user: global.db.data.users[m.sender], isROwner, isOwner, isRAdmin, isAdmin, isBotAdmin, chatUpdate, __dirname: ___dirname, __filename
                 };
-                if (await plugin.before.call(conn, m, extraBefore)) {
+                try {
+                    if (await plugin.before.call(conn, m, extraBefore)) {
+                        continue;
+                    }
+                } catch (e) {
+                    console.error(`Error en plugin.before de ${name}:`, e);
                     continue;
                 }
             }
