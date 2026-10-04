@@ -38,17 +38,6 @@ global.axios = axios
 global.kirito = ''
 global.moment = moment   
 
-let icono1 = [
-  'https://i.postimg.cc/c4t9wwCw/1756162596829.jpg',
-  'https://i.postimg.cc/c4MvC5Wz/1756167144046.jpg',
-  'https://i.postimg.cc/qMdtkHPn/1756167135980.jpg',
-]
-
-global.inc = icono1[Math.floor(Math.random() * icono1.length)];
-
-const res = await fetch(inc);
-const img = Buffer.from(await res.arrayBuffer());
-
 
 async function getRandomChannel() {
 let randomIndex = Math.floor(Math.random() * canalIdM.length)
