@@ -9,10 +9,10 @@ import moment from 'moment-timezone'
 
 
 global.owner = [
-  [ '12082982957', 'emmanuel', true ]
+  [ '13202109768', 'emmanuel', true ]
 ]; 
 
-global.suittag = ['12082982957'] 
+global.suittag = ['13202109768'] 
 global.sessions = 'Sessions'
 global.jadi = 'JadiBots' 
 global.Jadibts = true
