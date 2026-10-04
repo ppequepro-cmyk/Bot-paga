@@ -128,7 +128,7 @@ const respuestas = {
   'jsjs': { text: 'Jsjsjs 🤣🤣' },
   'ajaj': { text: 'Ajajajaja 😂' },
   'jeje': { text: 'Jejeje 😏' },
-  'jojo': { text: 'Jojojo 🎅' },
+  'jojo': { text: 'Jojojo 😈' },
   'wtf jajaj': { text: 'Qué random jajaj 😂' },
   'xddd': { text: 'XDDDDDD 🤣' },
   'zzz': { text: 'Zzz 😴 dormido' },
