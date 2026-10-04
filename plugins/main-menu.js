@@ -67,8 +67,6 @@ ${global.emoji || '🤖'} 𝐋𝐈𝐒𝐓𝐀 𝐃𝐄 𝐂𝐎𝐌𝐀𝐍𝐃
 ${global.rmr || ''}
 ${sections}
 
-╭━━〔 📢 CANAL OFICIAL 〕━━━⌬
-╰━━━━━━━━━━━━━━━━━━━━⌬
 
 ⌬⌬➩ © Powered by ${global.dev || 'Emmanuel'} - ${global.botname || 'BOT'}`.trim();
 
@@ -76,18 +74,6 @@ ${sections}
       mentionedJid: [userId],
       isForwarded: true
     };
-
-    const channel = global.channelRD || null;
-    const channelId = channel?.id || global.ch?.ch1;
-    const channelName = channel?.name || 'Canal oficial';
-
-    if (channelId) {
-      contextInfo.forwardedNewsletterMessageInfo = {
-        newsletterJid: channelId,
-        serverMessageId: '',
-        newsletterName: channelName
-      };
-    }
 
     await conn.sendMessage(m.chat, {
       text: menuText,
