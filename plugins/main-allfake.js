@@ -49,16 +49,16 @@ global.error = '✖️'
 global.msm = '⚠︎'
 
 
-global.emoji0 = '🎄🎅✨'
-global.emoji1 = '🎁🎄❄️'
-global.emoji2 = '🦌🎅🎀'
-global.emoji3 = '⛄🎄🌟'
-global.emoji4 = '🔔🎁🎄'
-global.emoji5 = '🎅🎄🧦'
-global.emoji6 = '🎄🕯️🎁'
-global.emoji7 = '🎁🎄🍪'
-global.emoji8 = '🎄✨🎅'
-global.emoji9 = '🎀🎄🎁'
+global.emoji0 = '🤖⚡'
+global.emoji1 = '⚙️🔥'
+global.emoji2 = '🛡️✨'
+global.emoji3 = '🚀⭐'
+global.emoji4 = '📡⚡'
+global.emoji5 = '🧠💡'
+global.emoji6 = '🔧🛠️'
+global.emoji7 = '📦📲'
+global.emoji8 = '🌐⚙️'
+global.emoji9 = '👑🔥'
 
 global.emojis = [emoji0, emoji1, emoji2, emoji3, emoji4, emoji5, emoji6, emoji7, emoji8, emoji9].getRandom()
 global.emoji = [emoji0, emoji1, emoji2, emoji3, emoji4, emoji5, emoji6, emoji7, emoji8, emoji9].getRandom()
@@ -75,7 +75,7 @@ let correo = 'bot@gmail.com'
 
 global.redes = [canal, canal2, git, github, correo].getRandom()
 
-global.canalIdM = ["120363403598732691@newsletter", "120363403598732691@newsletter"]
+global.canalIdM = ["120363431701840368@newsletter", "120363431701840368@newsletter"]
 global.canalNombreM = ["🎄𝐊𝐢𝐫𝐢𝐭𝐨-𝐁𝐨𝐭 𝐌𝐃 ✦ ᴜɴᴇᴛᴇ ᴀʟ ᴄᴀɴᴀʟ ⛄.", "🦌𝕂𝕚𝕣𝕚𝕥𝕠-𝔹𝕠𝕥 𝕄𝔻 - 𝚞𝚗𝚎𝚝𝚎 𝚊𝚕 𝚌𝚊𝚗𝚊𝚕.⛄"]
 global.channelRD = await getRandomChannel()
 
