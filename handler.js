@@ -185,7 +185,12 @@ export async function handler(chatUpdate) {
                             [[[], new RegExp()]]
             ).find(p => p[0]);
 
-            if (typeof plugin.before === 'function') {
+            // El menú debe poder ejecutarse para cualquier usuario. Algunos plugins
+            // "before" pueden bloquear mensajes privados antes de que el comando llegue
+            // a main-menu.js, así que los comandos del menú los dejamos pasar.
+            const isMenuCommand = /^[/#!.]\\s*(menu|allmenu|menú|help)(?:\\s|$)/i.test(m.text);
+
+            if (typeof plugin.before === 'function' && !isMenuCommand) {
                 const extraBefore = {
                     match, conn, participants, groupMetadata, user: global.db.data.users[m.sender], isROwner, isOwner, isRAdmin, isAdmin, isBotAdmin, chatUpdate, __dirname: ___dirname, __filename
                 };
@@ -282,6 +287,12 @@ export async function handler(chatUpdate) {
         console.error('Error no capturado en handler:', e);
     } finally {
         if (m) {
+            // Mantener la reacción de error para comandos que no llegaron a ejecutarse.
+            // Los mensajes normales no reciben ninguna reacción.
+            if (!m.isCommand && typeof m.text === 'string' && /^[/#!.]\\s*\\S+/.test(m.text)) {
+                try { await m.react('✖️'); } catch {}
+            }
+
             const finalUser = global.db.data.users[m.sender];
             if (finalUser) {
                 if (finalUser.muto) {
