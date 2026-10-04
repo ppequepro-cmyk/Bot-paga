@@ -7,12 +7,16 @@ export async function before(m, { conn, isAdmin }) {
     if (isAdmin) return; 
     if (!m.isGroup) return; 
     if (m.key.fromMe) return; 
-    const res = await fetch('https://files.catbox.moe/d2np6v.jpg')
-    const thumb3 = Buffer.from(await res.arrayBuffer())
-
     let chat = global.db.data.chats[m.chat];
 
     if (chat.delete) {
+        let thumb3 = Buffer.alloc(0);
+        try {
+            const res = await fetch('https://files.catbox.moe/d2np6v.jpg');
+            if (res.ok) thumb3 = Buffer.from(await res.arrayBuffer());
+        } catch (e) {
+            console.error('Aviso _antidelate: no se pudo cargar la miniatura externa:', e.message);
+        }
         if (global.delete.length > 500) global.delete = []; 
 
         
