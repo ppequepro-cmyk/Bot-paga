@@ -110,7 +110,7 @@ thumbnail: await (await fetch(imgurl)).buffer(),
 showAdAttribution: false,
 containsAutoReply: true,
 renderLargerThumbnail: true
-}}}, { quoted: m1 })
+}}}, { quoted: m })
 
   } catch (e) {
     conn.reply(m.chat, `❎ Lo sentimos, el menú tiene un error.\n\n${e}`, m)
