@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import { Sticker } from 'wa-sticker-formatter'
+import { sticker } from '../../lib/sticker.js'
 
 let handler = async (m, { conn, args }) => {
   const res1 = await fetch('https://files.catbox.moe/p87uei.jpg')
@@ -33,17 +33,8 @@ const fkontak = {
 
     if (!imageBuffer || imageBuffer.length === 0) throw new Error('La imagen recibida está vacía')
 
-    const sticker = new Sticker(imageBuffer, {
-      pack: 'Imagen BRAT',
-      author: botname,
-      type: 'full',
-      quality: 100,
-      categories: ['🤩','🎉'],
-      id: 'brat-sticker',
-      background: '#000000'
-    })
-
-    const stickerBuffer = await sticker.toBuffer()
+    const stickerBuffer = await sticker(imageBuffer, null, 'Imagen BRAT', botname, ['🤩', '🎉'])
+    if (!Buffer.isBuffer(stickerBuffer)) throw new Error('No se pudo generar el sticker')
     if (!stickerBuffer || stickerBuffer.length === 0) throw new Error('Error al convertir la imagen en sticker')
 
     await conn.sendMessage(m.chat, { sticker: stickerBuffer, ...global.rcanal }, { quoted: fkontak })
