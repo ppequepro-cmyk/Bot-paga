@@ -95,11 +95,7 @@ text: menuText,
 contextInfo: {
 mentionedJid: [userId],
 isForwarded: true,
-forwardedNewsletterMessageInfo: {
-newsletterJid: channelRD.id,
-serverMessageId: '',
-newsletterName: channelRD.name
-},
+forwardingScore: 1,
 externalAdReply: {
 title: botname,
 body: textbot,
