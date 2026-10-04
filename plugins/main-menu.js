@@ -114,7 +114,7 @@ ${sections}
                 {
                   name: 'cta_url',
                   buttonParamsJson: JSON.stringify({
-                    display_text: '⚡ VER CANAL ⚡',
+                    display_text: '📢 Abrir canal de ONYX',
                     url: channel?.url || 'https://whatsapp.com/channel/0029Vb9DAtxBlHphhwfBkM1i',
                     merchant_url: channel?.url || 'https://whatsapp.com/channel/0029Vb9DAtxBlHphhwfBkM1i'
                   })
