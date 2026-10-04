@@ -119,10 +119,23 @@ ${sections}
       }
     }
 
-    await conn.sendMessage(m.chat, {
-      text: menuText,
-      contextInfo
-    }, { quoted: m });
+    try {
+      // Primero intentamos el menú completo con imagen/canal.
+      await conn.sendMessage(m.chat, {
+        text: menuText,
+        contextInfo
+      }, { quoted: m });
+    } catch (sendError) {
+      console.error('Aviso main-menu: envío decorado falló, usando mensaje simple:', sendError?.message || sendError);
+      // El menú nunca debe desaparecer por una miniatura, canal o metadata
+      // que WhatsApp rechace en determinado cliente.
+      await conn.sendMessage(m.chat, {
+        text: menuText,
+        contextInfo: {
+          mentionedJid: [userId]
+        }
+      }, { quoted: m });
+    }
 
   } catch (e) {
     console.error('Error en main-menu:', e);
