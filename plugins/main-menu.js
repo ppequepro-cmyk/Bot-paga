@@ -83,7 +83,7 @@ ${sections}
         if (inviteCode) {
           const metadata = await conn.newsletterMetadata('invite', inviteCode);
           if (metadata?.id) channelId = metadata.id;
-          if (metadata?.name) channelName = metadata.name;
+          if (typeof metadata?.name === 'string' && metadata.name.trim()) channelName = metadata.name;
         }
       } catch (e) {
         console.error('No se pudo resolver el canal oficial:', e?.message || e);
@@ -99,7 +99,7 @@ ${sections}
     if (channelId) {
       contextInfo.forwardedNewsletterMessageInfo = {
         newsletterJid: channelId,
-        serverMessageId: 1,
+        serverMessageId: -1,
         newsletterName: channelName
       };
     }
