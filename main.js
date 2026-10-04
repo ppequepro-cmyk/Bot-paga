@@ -31,6 +31,7 @@ const phoneUtil = PhoneNumberUtil.getInstance();
 const { DisconnectReason, useMultiFileAuthState, MessageRetryMap, fetchLatestBaileysVersion, makeCacheableSignalKeyStore, jidNormalizedUser, Browsers } = await import('@whiskeysockets/baileys');
 import readline, { createInterface } from 'readline';
 import NodeCache from 'node-cache';
+import qrcode from 'qrcode';
 const { CONNECTING } = ws;
 const { chain } = lodash;
 const PORT = process.env.PORT || process.env.SERVER_PORT || 3000;
@@ -315,9 +316,18 @@ async function connectionUpdate(update) {
     global.timestamp.connect = new Date;
   }
   if (global.db.data == null) loadDatabase();
-  if (update.qr != 0 && update.qr != undefined || methodCodeQR) {
+  if (update.qr) {
     if (opcion == '1' || methodCodeQR) {
       console.log(chalk.green.bold(`[ ꗇ ]  Escanea este código QR`));
+      try {
+        const qrTerminal = await qrcode.toString(update.qr, {
+          type: 'terminal',
+          small: true
+        });
+        console.log(qrTerminal);
+      } catch (error) {
+        console.error(chalk.red('[ QR ERROR ] No se pudo renderizar el código QR:'), error);
+      }
     }
   }
   if (connection === "open") {
