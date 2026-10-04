@@ -67,6 +67,10 @@ ${global.emoji || '🤖'} 𝐋𝐈𝐒𝐓𝐀 𝐃𝐄 𝐂𝐎𝐌𝐀𝐍𝐃
 ${global.rmr || ''}
 ${sections}
 
+╭━━〔 📢 CANAL OFICIAL 〕━━━⌬
+┃ 🔗 https://whatsapp.com/channel/0029Vb9DAtxBlHphhwfBkM1i
+╰━━━━━━━━━━━━━━━━━━━━⌬
+
 ⌬⌬➩ © Powered by ${global.dev || 'Emmanuel'} - ${global.botname || 'BOT'}`.trim();
 
     const contextInfo = {
