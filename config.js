@@ -26,11 +26,6 @@ global.ch = {
 ch1: '120363403598732691@newsletter',
 ch2: '120363403598732691@newsletter',
 }
-global.channelRD = {
-  id: '120363403598732691@newsletter',
-  name: 'Canal oficial',
-  url: 'https://whatsapp.com/channel/0029Vb9DAtxBlHphhwfBkM1i'
-}
 global.cheerio = cheerio
 global.fs = fs
 global.fetch = fetch
