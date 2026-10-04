@@ -70,10 +70,22 @@ ${sections}
 
 ⌬⌬➩ © Powered by ${global.dev || 'Emmanuel'} - ${global.botname || 'BOT'}`.trim();
 
+    const channel = global.channelRD || null;
+    const channelId = channel?.id || global.ch?.ch1;
+    const channelName = channel?.name || 'Canal oficial';
+
     const contextInfo = {
       mentionedJid: [userId],
       isForwarded: true
     };
+
+    if (channelId) {
+      contextInfo.forwardedNewsletterMessageInfo = {
+        newsletterJid: channelId,
+        serverMessageId: '',
+        newsletterName: channelName
+      };
+    }
 
     await conn.sendMessage(m.chat, {
       text: menuText,
