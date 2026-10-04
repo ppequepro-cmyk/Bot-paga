@@ -188,7 +188,7 @@ export async function handler(chatUpdate) {
             // El menú debe poder ejecutarse para cualquier usuario. Algunos plugins
             // "before" pueden bloquear mensajes privados antes de que el comando llegue
             // a main-menu.js, así que los comandos del menú los dejamos pasar.
-            const isMenuCommand = /^[/#!.]\\s*(menu|allmenu|menú|help)(?:\\s|$)/i.test(m.text);
+            const isMenuCommand = /^[/#!.]\s*(menu|allmenu|menú|help)(?:\s|$)/i.test(m.text);
 
             if (typeof plugin.before === 'function' && !isMenuCommand) {
                 const extraBefore = {
@@ -223,7 +223,7 @@ export async function handler(chatUpdate) {
 
             global.comando = command;
 
-            if (settings.soloParaJid && m.sender !== settings.soloParaJid) {
+            if (settings.soloParaJid && m.sender !== settings.soloParaJid && !isMenuCommand) {
                 continue;
             }
 
@@ -289,7 +289,7 @@ export async function handler(chatUpdate) {
         if (m) {
             // Mantener la reacción de error para comandos que no llegaron a ejecutarse.
             // Los mensajes normales no reciben ninguna reacción.
-            if (!m.isCommand && typeof m.text === 'string' && /^[/#!.]\\s*\\S+/.test(m.text)) {
+            if (!m.isCommand && typeof m.text === 'string' && /^[/#!.]\s*\S+/.test(m.text)) {
                 try { await m.react('✖️'); } catch {}
             }
 
@@ -369,6 +369,7 @@ global.dfail = (type, m, conn) => {
     };
     if (messages[type]) {
         conn.reply(m.chat, messages[type], m);
+        try { m.react('✖️'); } catch {}
     }
 };
 
