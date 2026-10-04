@@ -135,7 +135,7 @@ console.debug = () => {};
 
 const connectionOptions = {
   logger: pino({ level: 'silent' }),
-  printQRInTerminal: opcion == '1' ? true : methodCodeQR ? true : false,
+  printQRInTerminal: false,
   mobile: MethodMobile,
   browser: opcion == '1' ? Browsers.macOS("Desktop") : methodCodeQR ? Browsers.macOS("Desktop") : Browsers.macOS("Chrome"),
   auth: {
@@ -318,13 +318,22 @@ async function connectionUpdate(update) {
   if (global.db.data == null) loadDatabase();
   if (update.qr) {
     if (opcion == '1' || methodCodeQR) {
-      console.log(chalk.green.bold(`[ ꗇ ]  Escanea este código QR`));
+      console.log(chalk.green.bold('[ ꗇ ]  Escanea este código QR'));
       try {
-        const qrTerminal = await qrcode.toString(update.qr, {
-          type: 'terminal',
-          small: true
-        });
-        console.log(qrTerminal);
+        const qr = qrcode.create(update.qr, { errorCorrectionLevel: 'L' });
+        const size = qr.modules.size;
+        const border = 2;
+        let output = '\\n';
+        for (let row = -border; row < size + border; row += 2) {
+          for (let col = -border; col < size + border; col++) {
+            const top = row >= 0 && row < size && qr.modules.get(row, col);
+            const bottomRow = row + 1;
+            const bottom = bottomRow >= 0 && bottomRow < size && qr.modules.get(bottomRow, col);
+            output += top ? (bottom ? '██' : '▀▀') : (bottom ? '▄▄' : '  ');
+          }
+          output += '\\n';
+        }
+        console.log(output);
       } catch (error) {
         console.error(chalk.red('[ QR ERROR ] No se pudo renderizar el código QR:'), error);
       }
