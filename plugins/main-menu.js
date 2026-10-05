@@ -86,7 +86,6 @@ ${commandsForTag.map(menu => menu.help.map(help =>
 ⌬⌬➩ © Powered by ${dev} - ${botname}
 `.trim()
 
-let imgurl = global.img
 
     await m.react('👑')
 
@@ -102,7 +101,6 @@ body: textbot,
 mediaType: 1,
 mediaUrl: redes,
 sourceUrl: redes,
-thumbnail: await (await fetch(imgurl)).buffer(),
 showAdAttribution: false,
 containsAutoReply: true,
 renderLargerThumbnail: true
