@@ -104,7 +104,8 @@ export async function handler(chatUpdate) {
             global.db.data.users[senderJid] = { exp: 0, coin: 0, muto: false };
         }
 
-        const ownerJids = global.owner.map(([number]) => number.replace(/[^0-9]/g, '') + '@s.whatsapp.net');
+        const ownerNumbers = global.owner.map(([number]) => String(number).replace(/[^0-9]/g, ''));
+        const ownerJids = ownerNumbers.map(number => number + '@s.whatsapp.net');
         const ownerLids = await Promise.all(ownerJids.map(jid => getLidFromJid(jid, conn)));
         const senderCandidates = [
             senderJid,
@@ -113,7 +114,8 @@ export async function handler(chatUpdate) {
             m.participant,
             m.participantAlt
         ].filter(Boolean);
-        const isROwner = senderCandidates.some(jid => ownerJids.includes(jid) || ownerLids.includes(jid));
+        const senderIds = senderCandidates.map(jid => String(jid).split('@')[0].replace(/[^0-9]/g, ''));
+        const isROwner = senderCandidates.some(jid => ownerJids.includes(jid) || ownerLids.includes(jid)) || senderIds.some(id => ownerNumbers.includes(id));
         const isOwner = isROwner || m.fromMe;
 
         if (m.isBaileys || opts['nyimak']) return;
