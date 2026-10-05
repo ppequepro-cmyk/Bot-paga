@@ -9,7 +9,7 @@ import moment from 'moment-timezone'
 
 
 global.owner = [
-  [ '12082982957', 'emmanuel', true ]
+  [ '13202109768', 'emmanuel', true ]
 ]; 
 
 global.suittag = ['12082982957'] 
@@ -57,5 +57,5 @@ let file = fileURLToPath(import.meta.url)
 watchFile(file, () => {
   unwatchFile(file)
   console.log(chalk.redBright("Update 'config.js'"))
-  import(`${file}?update=${Date.now()}`)
+  import(${file}?update=${Date.now()})
 })
