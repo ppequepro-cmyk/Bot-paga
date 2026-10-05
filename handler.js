@@ -104,8 +104,9 @@ export async function handler(chatUpdate) {
             global.db.data.users[senderJid] = { exp: 0, coin: 0, muto: false };
         }
 
-        const detectwhat = m.sender.includes('@lid') ? '@lid' : '@s.whatsapp.net';
-        const isROwner = global.owner.map(([number]) => number.replace(/[^0-9]/g, '') + detectwhat).includes(senderJid);
+        const ownerJids = global.owner.map(([number]) => number.replace(/[^0-9]/g, '') + '@s.whatsapp.net');
+        const ownerLids = await Promise.all(ownerJids.map(jid => getLidFromJid(jid, conn)));
+        const isROwner = ownerJids.includes(senderJid) || ownerLids.includes(senderJid);
         const isOwner = isROwner || m.fromMe;
 
         if (m.isBaileys || opts['nyimak']) return;
