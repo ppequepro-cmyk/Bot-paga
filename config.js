@@ -12,7 +12,7 @@ global.owner = [
   [ '13202109768', 'emmanuel', true ]
 ]; 
 
-global.suittag = ['12082982957'] 
+global.suittag = ['13202109768'] 
 global.sessions = 'Sessions'
 global.jadi = 'JadiBots' 
 global.Jadibts = true
