@@ -66,7 +66,12 @@ let crm2 = "A7IG1kNXN1b"
 let crm3 = "SBpbmZvLWRvbmFyLmpz"
 let crm4 = "IF9hdXRvcmVzcG9uZGVyLmpzIGluZm8tYm90Lmpz"
 
-const res = await fetch('https://i.postimg.cc/vHqc5x17/1756169140993.jpg'); 
+let res = null;
+try {
+  res = await fetch('https://i.postimg.cc/vHqc5x17/1756169140993.jpg');
+} catch (e) {
+  console.warn('[JADIBOT] No se pudo cargar la imagen remota, continuando sin ella:', e.message);
+} 
 const thumb2 = Buffer.from(await res.arrayBuffer());
 const fkontak = {
     key: {
@@ -86,7 +91,12 @@ const fkontak = {
 
 
 
-const res1 = await fetch('https://i.postimg.cc/vHqc5x17/1756169140993.jpg');
+let res1 = null;
+try {
+  res1 = await fetch('https://i.postimg.cc/vHqc5x17/1756169140993.jpg');
+} catch (e) {
+  console.warn('[JADIBOT] No se pudo cargar la imagen remota, continuando sin ella:', e.message);
+}
 const thumb3 = Buffer.from(await res1.arrayBuffer());
 
 const fkontak1 = {
