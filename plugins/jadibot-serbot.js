@@ -286,7 +286,7 @@ async function connectionUpdate(update) {
             } catch (error) {
                 console.error(chalk.bold.yellow(`Error al notificar cierre de sesión a: +${path.basename(pathJadiBot)}`))
             }
-            fs.rmdirSync(pathJadiBot, { recursive: true })
+            fs.rmSync(pathJadiBot, { recursive: true, force: true })
         }
     }
 
