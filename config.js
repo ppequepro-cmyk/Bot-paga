@@ -30,7 +30,7 @@ global.cheerio = cheerio
 global.fs = fs
 global.fetch = fetch
 global.axios = axios
-global.kirito = ''
+global.kirito = 'https://kirito-my.vercel.app'
 global.moment = moment   
 
 let icono1 = [
@@ -41,8 +41,6 @@ let icono1 = [
 
 global.inc = icono1[Math.floor(Math.random() * icono1.length)];
 
-const res = await fetch(inc);
-const img = Buffer.from(await res.arrayBuffer());
 
 
 async function getRandomChannel() {
