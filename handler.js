@@ -106,17 +106,38 @@ export async function handler(chatUpdate) {
 
         const ownerNumbers = global.owner.map(([number]) => String(number).replace(/[^0-9]/g, ''));
         const ownerJids = ownerNumbers.map(number => number + '@s.whatsapp.net');
-        const ownerLids = await Promise.all(ownerJids.map(jid => getLidFromJid(jid, conn)));
+
         const senderCandidates = [
             senderJid,
             m.key?.participant,
             m.key?.participantAlt,
+            m.key?.remoteJid,
             m.key?.remoteJidAlt,
             m.participant,
             m.participantAlt
         ].filter(Boolean);
-        const senderIds = senderCandidates.map(jid => String(jid).split('@')[0].replace(/[^0-9]/g, ''));
-        const isROwner = senderCandidates.some(jid => ownerJids.includes(jid) || ownerLids.includes(jid)) || senderIds.some(id => ownerNumbers.includes(id));
+
+        const normalizeNumber = value => {
+            const raw = String(value || '').split('@')[0].split(':')[0];
+            return raw.replace(/[^0-9]/g, '');
+        };
+
+        const resolvedCandidates = new Set(senderCandidates.map(String));
+
+        for (const jid of senderCandidates) {
+            if (String(jid).endsWith('@lid') && conn.signalRepository?.lidMapping?.getPNForLID) {
+                try {
+                    const pn = await conn.signalRepository.lidMapping.getPNForLID(String(jid));
+                    if (pn) resolvedCandidates.add(String(pn));
+                } catch {}
+            }
+        }
+
+        const senderIds = [...resolvedCandidates].map(normalizeNumber).filter(Boolean);
+        const isROwner =
+            senderCandidates.some(jid => ownerJids.includes(String(jid))) ||
+            senderIds.some(id => ownerNumbers.includes(id));
+
         const isOwner = isROwner || m.fromMe;
 
         if (m.isBaileys || opts['nyimak']) return;
