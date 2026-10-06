@@ -111,6 +111,7 @@ export async function handler(chatUpdate) {
             senderJid,
             m.key?.participant,
             m.key?.participantAlt,
+            m.key?.remoteJidAlt,
             m.participant,
             m.participantAlt
         ].filter(Boolean);
