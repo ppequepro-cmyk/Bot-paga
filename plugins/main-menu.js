@@ -89,22 +89,12 @@ ${commandsForTag.map(menu => menu.help.map(help =>
 
     await m.react('👑')
 
-    await conn.sendMessage(m.chat, { 
-text: menuText,
-contextInfo: {
-mentionedJid: [userId],
-isForwarded: true,
-forwardingScore: 1,
-externalAdReply: {
-title: botname,
-body: textbot,
-mediaType: 1,
-mediaUrl: redes,
-sourceUrl: redes,
-showAdAttribution: false,
-containsAutoReply: true,
-renderLargerThumbnail: true
-}}}, { quoted: m1 })
+    await conn.sendMessage(m.chat, {
+      text: menuText,
+      contextInfo: {
+        mentionedJid: [userId]
+      }
+    }, { quoted: m })
 
   } catch (e) {
     conn.reply(m.chat, `❎ Lo sentimos, el menú tiene un error.\n\n${e}`, m)
