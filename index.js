@@ -32,7 +32,7 @@ const phoneUtil = PhoneNumberUtil.getInstance();
 const { DisconnectReason, useMultiFileAuthState, MessageRetryMap, fetchLatestBaileysVersion, makeCacheableSignalKeyStore, jidNormalizedUser, Browsers } = await import('@whiskeysockets/baileys');
 import readline, { createInterface } from 'readline';
 import NodeCache from 'node-cache';
-import sharp from 'sharp';
+import Jimp from 'jimp';
 const { CONNECTING } = ws;
 const { chain } = lodash;
 const PORT = process.env.PORT || process.env.SERVER_PORT || 3000;
@@ -184,16 +184,13 @@ async function aplicarMarcaDeAgua(inputImageBuffer) {
     if (!watermarkBuffer) return inputImageBuffer;
     
     try {
-        const resizedWatermarkBuffer = await sharp(watermarkBuffer)
-            .resize(WATERMARK_WIDTH_PX, null, { fit: 'contain' })
-            .toBuffer();
+        const watermark = await Jimp.read(watermarkBuffer);
+        watermark.resize(WATERMARK_WIDTH_PX, Jimp.AUTO);
 
-        const outputBuffer = await sharp(inputImageBuffer)
-            .composite([{
-                input: resizedWatermarkBuffer,
-                gravity: sharp.gravity.northwest,
-            }])
-            .toBuffer();
+        const image = await Jimp.read(inputImageBuffer);
+        image.composite(watermark, 0, 0);
+
+        const outputBuffer = await image.getBufferAsync(image.getMIME());
         
         return outputBuffer;
     } catch (error) {
