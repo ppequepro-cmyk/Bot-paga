@@ -1,12 +1,18 @@
 import util from 'util';
 
+const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
+
 const handler = async (m, { text }) => {
   if (!text) return m.reply('⚠️ Escribe el código que quieres ejecutar.');
 
   try {
-    const result = await eval(`(async () => {\n${text}\n})()`);
-    const output = typeof result === 'string' ? result : util.inspect(result, { depth: 5 });
-    await m.reply(output || '✅ Ejecutado correctamente.');
+    const fn = new AsyncFunction(text);
+    const result = await fn();
+    const output = typeof result === 'string'
+      ? result
+      : util.inspect(result, { depth: 5 });
+
+    await m.reply(output === 'undefined' ? '✅ Ejecutado correctamente.' : output);
   } catch (e) {
     await m.reply(String(e));
   }
