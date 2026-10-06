@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import { Sticker } from 'wa-sticker-formatter'
+import Jimp from 'jimp'
 
 let handler = async (m, { conn, args }) => {
   const res1 = await fetch('https://files.catbox.moe/p87uei.jpg')
@@ -33,7 +33,11 @@ const fkontak = {
 
     if (!imageBuffer || imageBuffer.length === 0) throw new Error('La imagen recibida está vacía')
 
-    const sticker = new Sticker(imageBuffer, {
+    const image = await Jimp.read(imageBuffer)
+    image.contain(512, 512)
+    const stickerBuffer = await image.getBufferAsync(Jimp.MIME_WEBP)
+
+    /* const sticker = new Sticker(imageBuffer, {
       pack: 'GIF BRAT',
       author: botname,
       type: 'full',
@@ -43,7 +47,8 @@ const fkontak = {
       background: '#000000'
     })
 
-    const stickerBuffer = await sticker.toBuffer()
+    const stickerBufferLegacy = await sticker.toBuffer()
+    */
     if (!stickerBuffer || stickerBuffer.length === 0) throw new Error('Error al convertir la imagen en sticker')
 
     await conn.sendMessage(m.chat, { sticker: stickerBuffer, ...global.rcanal }, { quoted: fkontak })
