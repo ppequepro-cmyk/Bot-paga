@@ -65,7 +65,6 @@
 "ws": "^8.18.3",
 "yargs": "^17.3.1",
 "yt-search": "^2.10.3",
-"wa-sticker-js": "^1.0.7"
 },
 "optionalDependencies": {
 "moment-timezone": "^0.5.37",
